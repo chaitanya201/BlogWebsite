@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Bog</title>
+</head>
+<body>
+<center><h1>Edit Your Blog Here</h1></center>
+<a href="{%url 'back' id %}" style="font-size:50px;background">Back</a>
+{% if msg %}
+<h3 style="background-color:green;">{{msg}}</h3>
+{% endif %}
+<center>
+    <form enctype="multipart/form-data" method="post" action="{% url 'edit_blog' id title blog.id %}">
+        {% csrf_token %}
+        Enter Title:
+        <input type="text" maxlength="200" name="title" value="{{blog.title}}"><br><br>
+
+        Image 1:
+        <input type="file" name="img1" draggable="true" ><br><br>
+        {% if blog.img1 %}
+        <img src="{{blog.img1.url}}" alt="Image 1 was not uploaded" width="90px" height="90px">
+        {% endif %}
+        <br>
+        <br>
+
+        <b>Enter Content Here:</b>
+        <input type="text" maxlength="10200" value="{{blog.blog_content}}" style="height:200px; width:400px; " name="blog" draggable="true">  <br><br>
+        {% if blog.img2 %}
+        <img src="{{blog.img2.url}}" alt="Image 1 was not uploaded" width="90px" height="90px">
+        {% endif %}
+
+        Image 2:
+        <input type="file" name="img2" >
+        <br><br>
+        <input type="submit" value="Update Blog" style="height:30px; width:90px;">
+    </form>
+
+</center>
+</body>
+</html>

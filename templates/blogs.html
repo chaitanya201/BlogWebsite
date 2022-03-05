@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+
+<h3>Create Blogs Here</h3>
+<h2> Note that Image 1 will be displayed above the content and Image 2 be at below the content.</h2>
+<!--
+<img src="" height="200px" width="200px">
+-->
+<a href="{%url 'back' id %}" >Back</a>
+
+{% if success %}
+    <h3 style="background-color:green;">{{success}}</h3>
+{% endif %}
+{% if msg %}
+    <h3 style="background-color:red;">{{msg}}</h3>
+{% endif %}
+<center>
+<form action="{% url 'save_blog' id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>
+        Enter Heading Here:
+    </h2>
+    <textarea rows="10" cols="60" maxlength="200" name="heading" placeholder="Enter the Title Here" style="border-color:blue;" autofocus required>Enter Blog Title </textarea>
+
+
+    <h3>
+        Enter the blog content here:
+    </h3>
+    <textarea name="blog" maxlength="10200" cols="60" rows="40" placeholder="Add Your Blog Here ......." style="border-color:blue;" required>Enter Blog Content Here</textarea>
+
+    <br>
+    <br>
+    <br>
+    Image 1:
+    <input type="file" name="img1">
+
+
+    <br>
+    <br>
+    Image 2:
+    <input type="file" name="img2">
+    <br>
+    <br>
+
+    <input type="submit" value="Upload">
+
+
+
+</form>
+    </center>
+</body>
+</html>

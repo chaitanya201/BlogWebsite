@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments</title>
+</head>
+<body>
+
+<center><h3>Login first before entering comment</h3></center>
+<br>
+<br>
+{% if error %}
+<center><h2 style="background:red;">{{error}}</h2></center>
+{% endif %}
+<br>
+<br>
+{% csrf_token %}
+<form action="{% url 'comment_login' title %}" method="post">
+     {% csrf_token %}
+    <center>
+        Enter Email:
+
+        <input type="email" name="email" placeholder="Email id">
+        <br>
+        <br>
+
+
+        Enter Password:
+        <input type="password" name="password" placeholder="Enter Password">
+        <br>
+        <br>
+
+        <input type="submit" value="Login">
+
+    </center>
+</form>
+</body>
+</html>

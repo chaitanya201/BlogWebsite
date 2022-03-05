@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Admin Profile</title>
+    {% csrf_token %}
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<center><h1 style="color:crimson">Profile</h1></center>
+<hr>
+<h2 style="color:aqua;">"{{name}}"</h2>
+    {% csrf_token %}
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary btn-lg active" style="position:absolute;top:100px;right:80px;" aria-pressed="true">Logout</button>
+</form>
+    {% if all_data %}
+    <center>
+        <h3>All Students Data:</h3>
+        <table border="3px" title="Student  Data" bgcolor="cyan">
+            <tr>
+            <td>
+                Index
+            </td>
+
+            <td>
+                Name
+            </td>
+
+            <td>
+                Email
+            </td>
+
+            <td>
+                Blogs
+            </td>
+
+            <td>
+                Delete Author
+            </td>
+
+            <td>
+                Update Author Data
+            </td>
+
+        </tr>
+            {% if all_blogs %}
+            {% for data in all_data %}
+
+            {% for blog in all_blogs %}
+            {% if data.id == blog.user_blog_id %}
+            <tr>
+                <td>
+                    {{forloop.counter}}
+               </td>
+
+
+                <td>
+                    {{data.name }}
+                </td>
+
+
+                <td>
+                    {{data.email}}
+                </td>
+
+                <td>
+                    <a href="{% url 'delete_blog' aid blog.title %}" title="Click here to 'Delete' {{blog.title}} "> {{blog.title }}</a>
+                </td>
+
+                <td>
+                    <a href="{% url 'delete' data.id aid %}" style="background-color:red;font-size:25px;" title="Delete {{data.name}}">Delete</a>
+                </td>
+                <td>
+                    <a href="{% url 'update' data.id aid %}" style="background-color:yellow;font-size:25px;" title="Update {{data.name}}">Edit</a>
+                </td>
+            </tr>
+             {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+    </table>
+    </center>
+    {% endif %}
+</body>
+</html>

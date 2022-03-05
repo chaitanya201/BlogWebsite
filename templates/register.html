@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registration Page</title>
+  </head>
+  <body style="background-image: url('{% static "sign up.jpg" %}')">
+    <center><h2>Registration Page</h2></center>
+
+    {% if error %}
+    <center>
+      <h3
+        style="
+          font-size: 30px;
+          background-color: red;
+          max-height: 52px;
+          max-width: 500px;
+        "
+      >
+        {{error}}
+      </h3>
+    </center>
+    {% endif %}
+
+    <form action="{% url 'register'%}" method="post">
+      {% csrf_token %}
+
+      <div style="position: absolute; top: 160px; left: 500px">
+        Enter Name:
+        <input
+          type="text"
+          name="name"
+          required
+          placeholder="Enter Full Name"
+          style="height: 29px; width: 240px; border-color: blue"
+          autofocus
+        />
+      </div>
+
+      <div style="position: absolute; top: 210px; left: 500px">
+        Enter Email:
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="Enter Valid Email"
+          style="height: 29px; width: 245px; border-color: blue"
+          autofocus
+        />
+      </div>
+
+      <div style="position: absolute; top: 260px; left: 500px">
+        Enter Password:
+        <input
+          type="password"
+          name="password"
+          required
+          placeholder="Password"
+          style="height: 29px; width: 220px; border-color: blue"
+          autofocus
+        />
+      </div>
+
+      <div style="position: absolute; top: 310px; left: 500px">
+        Confirm Password:
+        <input
+          type="password"
+          name="cpassword"
+          required
+          placeholder="Confirm entered password"
+          style="height: 29px; width: 200px; border-color: blue"
+          autofocus
+        />
+      </div>
+
+      <div style="position: absolute; top: 360px; left: 600px">
+        <button
+          type="submit"
+          style="height: 30px; width: 80px; border-color: blue"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+  </body>
+</html>

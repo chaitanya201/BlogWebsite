@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify </title>
+</head>
+<body>
+<center><h2>
+    Verify you are an authenticated user of " Blogs.com " website
+</h2></center>
+
+{% if msg %}
+<h3 style="background:red;"><marquee direction="right">{{msg}}</marquee></h3>
+{% endif %}
+
+<center>
+
+<form action="{% url 'verify' id%}" method="post">
+    {% csrf_token %}
+    Enter Email ID:-
+    <input name="email" type="email" placeholder="Enter Email" width="200" required>
+    <br>
+    <br>
+    Enter Password:-
+    <input type="password" name="password" placeholder="Enter Password" required>
+    <br>
+    <br>
+    <input type="submit" value="Verify">
+</form>
+
+</center>
+</body>
+</html>

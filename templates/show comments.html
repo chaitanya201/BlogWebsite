@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Show Comments</title>
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+{% if all_blogs %}
+
+{% for blog in all_blogs%}
+<center>
+    <table border="5px" width="700px">
+        <tr>
+            <th>
+                <pre>
+
+                    <b style="font-size:20px;position:absolute;right:700px;"> Blog No. {{forloop.counter}}</b> <!-- this is a built in counter and this is its syntax-->
+
+                </pre>
+
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                <div class="jumbotron jumbotron-fluid">
+                      <div class="container">
+                            <h1 class="display-4">{{blog.title}}</h1>
+                      </div>
+                </div>
+
+
+
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <div class="jumbotron jumbotron-fluid">
+                      <div class="container">
+                          <center>
+
+                          {% if blog.img1 %}
+
+
+                          <img src="{{blog.img1.url}}" height="100px" width="100px">
+                            {% endif %}
+
+                            </center>
+
+                        <p class="lead">{{blog.blog_content}}</p>
+
+                          <center>
+                          {% if blog.img2 %}
+                            image 2 url is {{ blog.img2 }}
+                          <img src="{{blog.img2.url}}" height="100px" width="100px">
+                            {% endif %}
+                              </center>
+
+                          {% for i in all_users %}
+                    {% if i.id == blog.user_blog_id %}
+
+                          {% if i.profile %}
+                          <img src="{{i.profile.url}}" height="100px" width="100px" style="position:absolute;right:900px;" alt="Profile is not uploaded."><br>
+                          {% endif %}
+                    <i style="background-color:CornflowerBlue; position:absolute;right:400px;">---{{ i.name}}({{blog.time}})</i>
+
+                    {% endif %}
+                    {% endfor %}
+                      </div>
+                </div>
+            </th>
+        </tr>
+
+
+        <tr>
+            <td>
+                <a href="{% url 'comment_login' blog.title %}" title="Add a comment" > Add Comment</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                {% if all_comments %}
+
+                    {% for comment in all_comments %}
+
+                        {% if blog.title == comment.blog_title %}
+                        <i style="color:cyan;">-{{comment.user_comment.name}}({{comment.time}})</i>
+                        {{comment.comment}}<br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+            </td>
+        </tr>
+
+</table>
+    </center>
+{% endfor %}
+
+{% endif %}
+
+</body>
+</html>

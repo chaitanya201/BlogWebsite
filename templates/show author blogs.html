@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Author Blogs</title>
+</head>
+<body>
+<center>
+    <h2>{{name}}'s All Blogs</h2>
+</center>
+<br>
+<br>
+{% if profile_pic %}
+<center><img src="{{profile_pic.url}}" height="100"  width="100"></center>
+{% endif %}
+<br>
+<br>
+
+<center>
+    <table width="700" border="2">
+        {% for blog in all_blogs %}
+        {% if blog.user_blog_id == id %}
+        <tr bgcolor="cyan">
+            <th>
+                Blog No. {{forloop.counter}}
+                {{blog.title}}
+
+            </th>
+
+        </tr>
+
+        <tr>
+            <th>
+                {% if blog.img1 %}
+                <img src="{{blog.img1.url}}" height="550" width="550">
+                {% endif %}
+                <br>
+                {% if blog.img2 %}
+                <img src="{{blog.img2.url}}" height="150" width="150">
+                {% endif %}
+            </th>
+        </tr>
+
+
+
+        <tr bgcolor="DarkGrey">
+            <th>
+                {{blog.blog_content}}
+            </th>
+        </tr>
+
+        <tr bgcolor="LightSteelBlue">
+            <th>
+                ---{{blog.time}}
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                <a href="{% url 'show_author_comments' id %}">show comments</a><br>
+                <a href="{% url 'verify' id %}">add comments</a>
+            </th>
+        </tr>
+
+        {% endif %}
+        {% endfor %}
+    </table>
+</center>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+</head>
+<body>
+<title>Edit Profile</title>
+
+<a href="{%url 'admin_profile' aid %}" class="btn btn-primary btn-lg active" style="font-size:25px; background:SpringGreen;color:blue;position:absolute;left:200px;height:50px;width:70px;">Back</a>
+
+<form action="{% url 'update' id aid %}" method="post">
+
+    {% csrf_token %}
+
+    {% for i in user%}
+
+
+<div style="position:absolute;top:160px;left:500px">
+        Enter Name:
+    <input type="text" name="name" required placeholder="Enter Full Name" style="height:29px;width:240px;border-color:blue" autofocus value="{{i.name}}">
+     </div>
+
+    <div style="position:absolute;top:210px;left:500px" >
+        Enter Email:
+    <input type="email" name="email" required placeholder="Enter Valid Email" style="height:29px;width:245px;border-color:blue" autofocus value="{{i.email}}">
+    </div>
+
+    <div style="position:absolute;top:260px;left:500px">
+        Enter Password:
+    <input type="password" name="password" required placeholder="Password"  style="height:29px; width:220px; border-color:blue" autofocus value="{{i.password}}">
+    </div>
+    <input type="submit" value="Update" style="position:absolute;top:320px;left:600px; background-color:green; font-size:15px;">
+
+    </form>
+{%endfor%}
+</body>
+</html>

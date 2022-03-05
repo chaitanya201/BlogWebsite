@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>show author comments</title>
+</head>
+<body>
+
+<center>
+    <h2>
+        All Blogs Of {{name}}
+    </h2>
+</center>
+
+<br>
+<br>
+{% if profile_pic %}
+<center><img src="{{profile_pic.url}}" height="150" width="150"></center>
+{% endif %}
+<br>
+<br>
+
+<center>
+    <table width="700" border="2">
+        {% for blog in all_blogs %}
+        {% if blog.user_blog_id == id %}
+        <tr bgcolor="cyan">
+            <th>
+                Blog No. {{forloop.counter}}
+                {{blog.title}}
+
+            </th>
+
+        </tr>
+
+
+                {% if blog.img1 %}
+        <tr>
+            <th>
+                <img src="{{blog.img1.url}}" height="150" width="150">
+                {% endif %}
+                <br>
+                {% if blog.img2 %}
+                <img src="{{blog.img2.url}}" height="150" width="150">
+                 </th>
+        </tr>
+                {% endif %}
+
+
+
+
+        <tr bgcolor="DarkGrey">
+            <th>
+                {{blog.blog_content}}
+            </th>
+        </tr>
+
+        <tr bgcolor="LightSteelBlue">
+            <th>
+                ---{{blog.time}}
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                {% for comment in all_comments %}
+                {% if comment.blog_title == blog.title %}
+                ( {{comment.user_comment}} {{ comment.time}} ) {{comment.comment}}<br>
+
+                {% endif %}
+                {% endfor %}
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+
+                <a href="{% url 'diverify' id %}">add your comments</a>
+            </th>
+        </tr>
+
+        {% endif %}
+        {% endfor %}
+    </table>
+</center>
+</body>
+</html>

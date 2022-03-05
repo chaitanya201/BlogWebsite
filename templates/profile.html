@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Profile</title>
+
+    <style>
+        #first_div{
+        background-color:white;
+        }
+    </style>
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<center><h1 style="color:crimson">Profile</h1></center>
+<hr>
+<h2>Hello</h2>
+
+<h2 style="color:aqua;">"{{name}}"</h2>
+
+{% if profile_photo %}
+<div style="position:absolute; left:0px;height:40px;width:40px; top:0px;">
+<img src="{{profile_photo.url}}" width="100" height="100">
+</div>
+{% endif %}
+
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary btn-lg active" style="position:absolute;top:100px;right:80px;" aria-pressed="true">Logout</button>
+</form>
+<a href="{%url 'blog' id %}"  title="Create new blog here" class="btn btn-primary btn-lg active" style="font-size:25px; background:SpringGreen;color:blue;position:absolute; right:10px;height:50px;width:210px; top:250px;" type="button" aria-pressed="true" >Create New Blog</a>
+<br>
+<div style="background:cyan; width:250px;">
+    <form method="post" action="{% url 'upload_profile_photo' id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h5>Upload Profile Photo:</h5>
+    <input type="file" name="profile_photo"> <br> <br>
+    <input type="submit" value="Upload">
+</form>
+
+</div>
+<br>
+<br>
+
+<center>
+    <h1 style="width:500px;background-color:LightPink;">{{name}}'s Blogs</h1>
+</center>
+{% if blog %}
+
+<center style="background-color:dimgrey;">
+
+    <div id="first_div">
+        <br>
+        <br>
+        <br>
+    </div>
+    <div style="background-color:dimgrey;">
+    <table >
+        {% for data in blog %}
+            {% if data.user_blog_id == id %}
+            <tr>
+                <h3 style="background-color:lightblue; width:200px;">Blog No.{{forloop.counter}}</h3>
+            </tr>
+            <tr>
+                <h1 style="background-color:lightblue; width:500px;">{{data.title }}</h1>
+                <h3 style="background-color:red; width:200px;"><a href="{% url 'delete_blog_user' data.title id%}" title="Delete {{data.title}} Blog">Delete Blog</a></h3>
+                <h3 style="background-color:cyan; width:200px;"><a href="{% url 'edit_blog' id data.title data.id%}" title="Edit {{data.title}} Blog">Edit Blog</a></h3>
+            </tr>
+
+        <tr style="background-color:DarkGrey;">
+            {% if data.img1 %}
+            <img src="{{data.img1.url}}" height="400px" width="400px" alt="Image 1 is not uploaded">
+            {% endif %}
+            <h4>{{ data.blog_content }}</h4>
+            {% if data.img2 %}
+            <img src="{{data.img2.url}}" height="100px" width="100px" alt="Image 2 is not uploaded">
+            {% endif %}
+            <br>
+            <b>({{data.time}})</b>
+        </tr>
+
+        <tr>
+            <div style="background-color:Azure;">
+                <br>
+                <br>
+
+            </div>
+
+        </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+        </div>
+</center>
+{% endif %}
+</body>
+</html>

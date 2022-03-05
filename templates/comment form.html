@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Comments</title>
+</head>
+<body>
+<center><h1>Add Comments Here</h1></center>
+
+<form method="post" action="{% url 'add_comment' id title%}">
+     {% csrf_token %}
+    <center>
+
+   <h2>Enter Comment:</h2>
+
+    <div>
+        <input type="text" name="comment" size="1000px" style="height:100px;width:300px">
+    </div>
+
+        <br>
+
+    <input type="submit" style="height:30px;width:70px" >
+    </center>
+</form>
+</body>
+</html>
